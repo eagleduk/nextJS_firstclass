@@ -42,3 +42,26 @@ export default function Page({ params }) {
   return <h1>{params.id}</h1>;
 }
 ```
+
+## img Component
+
+- HTML 기본 TAG 인 `<img>` 를 사용할 때, 참조되는 이미지 객체가 아닌 객체의 [src] 값을 할당해 주어야 한다.
+
+  ```jsx
+  import logo from "@/asset/logo.png";
+
+  export default function App() {
+    return <img src={logo.src} alt="logo" />;
+  }
+  ```
+
+- NextJS 가 제공하는 `<image>` 컴포넌트를 사용하여 이미지의 객체를 전달해 주면, **NextJS** 에서 자동으로 최적화를 하여 출력해준다.
+
+  ```jsx
+  import Image from "next/image";
+  import logo from "@/asset/logo.png";
+
+  export default function App() {
+    return <Image src={logo} alt="logo" />;
+  }
+  ```
