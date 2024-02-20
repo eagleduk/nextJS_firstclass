@@ -76,3 +76,7 @@ export default function Page({ params }) {
 ## sqlite3, better-sqlite3
 
 - `.js` 파일 기반으로 `.db` 파일을 생성하여 제공하는 local 기반 sql 데이터베이스
+
+## Database
+
+- NextJS Component 들은 기본적으로 Server 에서 동작이 수행되기 때문에, Component 에 `async/await` 을 사용할 수 있다. 또한 `useEffect` 도 Client 함수이기 때문에 사용하지 않는다.
