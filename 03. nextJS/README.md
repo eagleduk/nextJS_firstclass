@@ -65,3 +65,9 @@ export default function Page({ params }) {
     return <Image src={logo} alt="logo" />;
   }
   ```
+
+## client component
+
+- React 는 기본적으로 Client 기반 프레임워크이고, NextJS 는 Server & Client 기반 프레임 워크이다.
+- 기본적으로 NextJS 에서의 Component 는 Server 에서 rendering 되기 때문에 Client 기반 함수( 이벤트 리스너, hook, setTimeout, setInterval 등) 를 사용할 수 없다.
+- NextJS 에서 원하는 Component 를 Client 기반 rendering 을 하기 위해서는 `'use client'` 문구를 추가해 주어야 한다.
