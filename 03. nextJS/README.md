@@ -29,6 +29,11 @@
 
    - 라우터(URL)에서 발생하는 Error에 대한 fallback 페이지 역할을 한다.
 
+5. loading.js
+
+- NextJS 는 처음 방문하는 페이지에 대하여 캐싱을 하기 때문에 데이터를 가져오는 중인 경우 동작을 하지 않는다.
+- 그러한 점에 있어서 페이지의 동작 상태를 알려주기 위한 역할을 한다.
+
 ## [NextJS 의 폴더 체계](https://nextjs.org/docs/app/building-your-application/routing/colocation)
 
 ## dynamic route(동적 라우트)
