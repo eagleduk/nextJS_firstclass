@@ -71,3 +71,8 @@ export default function Page({ params }) {
 - React 는 기본적으로 Client 기반 프레임워크이고, NextJS 는 Server & Client 기반 프레임 워크이다.
 - 기본적으로 NextJS 에서의 Component 는 Server 에서 rendering 되기 때문에 Client 기반 함수( 이벤트 리스너, hook, setTimeout, setInterval 등) 를 사용할 수 없다.
 - NextJS 에서 원하는 Component 를 Client 기반 rendering 을 하기 위해서는 `'use client'` 문구를 추가해 주어야 한다.
+- client component 는 component tree 의 최하위에 위치하도록 한다.
+
+## sqlite3, better-sqlite3
+
+- `.js` 파일 기반으로 `.db` 파일을 생성하여 제공하는 local 기반 sql 데이터베이스

@@ -5,6 +5,7 @@ import classes from "./header.module.css";
 
 import logo from "@/assets/logo.png";
 import HeaderBackground from "./header-background";
+import HeaderLink from "./header-link";
 
 export default function Header() {
   return (
@@ -19,10 +20,10 @@ export default function Header() {
         <nav className={classes.nav}>
           <ul>
             <li>
-              <Link href={"/meals"}>Browse Meals</Link>
+              <HeaderLink href="/meals">Browse Meals</HeaderLink>
             </li>
             <li>
-              <Link href={"/community"}>Foodies Community</Link>
+              <HeaderLink href="/community">Foodies Community</HeaderLink>
             </li>
           </ul>
         </nav>
