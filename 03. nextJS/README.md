@@ -95,3 +95,7 @@ export default function Page({ params }) {
 
 - 에러가 발생하는 라우터 상단에 존재하면 하단에 있는 라우터에서도 사용이 가능하다.
 - `error.js` Component 는 반드시 **`use client`** 를 사용해야 한다.
+
+## error 및 not-found 호출
+
+- Component 에서 `notFound` 메소드를 호출하면 호출된 페이지에서 가장 가까이 있는 not-found.js 를 호출한다.
