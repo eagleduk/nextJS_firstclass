@@ -90,3 +90,8 @@ export default function Page({ params }) {
 
 - React 에서 제공하는 기본 Component
 - children 요소가 로딩중일 때 fallback 요소로 대체할 수 있다.
+
+## Error
+
+- 에러가 발생하는 라우터 상단에 존재하면 하단에 있는 라우터에서도 사용이 가능하다.
+- `error.js` Component 는 반드시 **`use client`** 를 사용해야 한다.
