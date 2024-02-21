@@ -85,3 +85,8 @@ export default function Page({ params }) {
 ## Database
 
 - NextJS Component 들은 기본적으로 Server 에서 동작이 수행되기 때문에, Component 에 `async/await` 을 사용할 수 있다. 또한 `useEffect` 도 Client 함수이기 때문에 사용하지 않는다.
+
+## [Suspense](react.dev/reference/react/Suspense)
+
+- React 에서 제공하는 기본 Component
+- children 요소가 로딩중일 때 fallback 요소로 대체할 수 있다.
