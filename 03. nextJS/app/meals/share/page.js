@@ -1,41 +1,14 @@
+"use client";
+import { useFormState } from "react-dom";
+
 import InputImage from "@/components/meals/image-picker";
 import classes from "./page.module.css";
-import { saveMeal } from "@/lib/meals";
-import { redirect } from "next/navigation";
 import FormSubmit from "@/components/meals/formSubmit";
-
-function isInvalidText(text) {
-  return !text || text.trim() === "";
-}
+import { sumitAction } from "@/lib/actions";
 
 export default function ShareMealPage() {
-  async function sumitAction(formData) {
-    "use server";
-    const meal = {
-      title: formData.get("title"),
-      image: formData.get("image"),
-      summary: formData.get("summary"),
-      instructions: formData.get("instructions"),
-      creator: formData.get("name"),
-      creator_email: formData.get("email"),
-    };
+  const [state, action] = useFormState(sumitAction, { message: null });
 
-    if (
-      isInvalidText(meal.title) ||
-      isInvalidText(meal.summary) ||
-      isInvalidText(meal.instructions) ||
-      isInvalidText(meal.creator) ||
-      isInvalidText(meal.creator_email) ||
-      !meal.creator_email.includes("@") ||
-      !meal.image ||
-      meal.image.size === 0
-    ) {
-      throw new Error("Invalid input");
-    }
-
-    await saveMeal(meal);
-    redirect("/meals");
-  }
   return (
     <>
       <header className={classes.header}>
@@ -45,7 +18,7 @@ export default function ShareMealPage() {
         <p>Or any other meal you feel needs sharing!</p>
       </header>
       <main className={classes.main}>
-        <form className={classes.form} action={sumitAction}>
+        <form className={classes.form} action={action}>
           <div className={classes.row}>
             <p>
               <label htmlFor="name">Your name</label>
@@ -74,6 +47,7 @@ export default function ShareMealPage() {
             ></textarea>
           </p>
           <InputImage name="image" />
+          {state.message && <p>{state.message}</p>}
           <p className={classes.actions}>
             <FormSubmit />
           </p>
