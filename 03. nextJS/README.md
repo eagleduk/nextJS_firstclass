@@ -146,3 +146,26 @@ function App() {
 
 - 개발 단계에서 filesystem 은 정상적으로 동작하지만, 배포 이후에는 동작되지 않는다.
 - 개발 단계의 filesystem 을 배포하는 것보다, `AWS S3` 등 을 사용함을 권고한다.
+
+## Metadata
+
+- 페이지 속성에 대한 값을 저장할 수 있다. (타이틀, 설명 및 favicon 등)
+- metadata 는 정적 / 동적 으로 지정할 수 있다.
+- 최상단 layout 에 있는 metadata 는 하위 layout 에 사용이 된다.
+- 해당 layout 에 있는 metadata 가 없을 시 상위 layout 의 metadata 를 사용한다.
+
+```javascript
+// 정적 metadata
+
+export const metadata = {
+  title: "NextLevel Food",
+  description: "Delicious meals, shared by a food-loving community.",
+};
+
+// 동적 metadata
+export async function generateMetadata({ params }) {
+  return {
+    title: "",
+  };
+}
+```
