@@ -1,5 +1,7 @@
 import InputImage from "@/components/meals/image-picker";
 import classes from "./page.module.css";
+import { saveMeal } from "@/lib/meals";
+import { redirect } from "next/navigation";
 
 export default function ShareMealPage() {
   async function sumitAction(formData) {
@@ -12,7 +14,10 @@ export default function ShareMealPage() {
       creator: formData.get("name"),
       creator_email: formData.get("email"),
     };
-    console.log(meal);
+    // console.log(meal);
+
+    await saveMeal(meal);
+    redirect("/meals");
   }
   return (
     <>

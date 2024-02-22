@@ -123,3 +123,8 @@ function App() {
 }
 
 ```
+
+## xss 보안 취약 관련 library
+
+- 입력값의 xss 보안(script, alert 등) 문자로 인한 보안 취약 사양을 위한 패키지
+- npm install xss
