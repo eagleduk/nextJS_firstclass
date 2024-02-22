@@ -2,6 +2,11 @@ import InputImage from "@/components/meals/image-picker";
 import classes from "./page.module.css";
 import { saveMeal } from "@/lib/meals";
 import { redirect } from "next/navigation";
+import FormSubmit from "@/components/meals/formSubmit";
+
+function isInvalidText(text) {
+  return !text || text.trim() === "";
+}
 
 export default function ShareMealPage() {
   async function sumitAction(formData) {
@@ -14,7 +19,19 @@ export default function ShareMealPage() {
       creator: formData.get("name"),
       creator_email: formData.get("email"),
     };
-    // console.log(meal);
+
+    if (
+      isInvalidText(meal.title) ||
+      isInvalidText(meal.summary) ||
+      isInvalidText(meal.instructions) ||
+      isInvalidText(meal.creator) ||
+      isInvalidText(meal.creator_email) ||
+      !meal.creator_email.includes("@") ||
+      !meal.image ||
+      meal.image.size === 0
+    ) {
+      throw new Error("Invalid input");
+    }
 
     await saveMeal(meal);
     redirect("/meals");
@@ -58,7 +75,7 @@ export default function ShareMealPage() {
           </p>
           <InputImage name="image" />
           <p className={classes.actions}>
-            <button type="submit">Share Meal</button>
+            <FormSubmit />
           </p>
         </form>
       </main>

@@ -128,3 +128,7 @@ function App() {
 
 - 입력값의 xss 보안(script, alert 등) 문자로 인한 보안 취약 사양을 위한 패키지
 - npm install xss
+
+## 제출 양식 상태 관리
+
+- `form` 내부의 **component 에서만 사용 가능**한 `useFormStatus` hook 을 이용한 상태 관리
