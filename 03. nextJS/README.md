@@ -99,3 +99,27 @@ export default function Page({ params }) {
 ## error 및 not-found 호출
 
 - Component 에서 `notFound` 메소드를 호출하면 호출된 페이지에서 가장 가까이 있는 not-found.js 를 호출한다.
+
+## server action
+
+- 함수나 파일 최상단에 `use server` 문구를 추가 함으로써 backend 서버에서 동작할 수 있게 만들어 준다.
+- `use server` 와 `use client` 가 같은 파일에 동시에 존재할 수 없다. : **서로 다른 파일에서 참조 형식은 가능**
+
+## form submit
+
+- form tag 의 action 속성 값에 양식 제출 함수를 할당
+
+```jsx
+
+function App() {
+  async function action(formData) {
+    "use server";
+    const name = formData.get("name");
+  }
+
+  return <form action={action}>
+    <input type="text" name="name">
+  </form>
+}
+
+```
