@@ -18,15 +18,88 @@
 - useRouter 의 `query` 사용
 
 ```jsx
+// /test
+// page/[id].js
+
 import { useRouter } from "next/router";
 
 export default function ClientInformation() {
   const router = useRouter();
-  console.log(router.query);
+  console.log(router.query); // { id: "test" }
   return (
     <div>
       <h1>Client Information Page.</h1>
     </div>
   );
 }
+```
+
+#### 중첩된 동적 route
+
+- `[route1]/[route2]` 구조의 URL
+- `[...ids]` javascript 의 spread syntax 와 비슷하게 배열로 전환
+- 다수의 동적 세그먼트(query) 의 값을 추출
+
+```jsx
+// /id1/id2/id4
+// page/[...ids]/index.js
+
+import { useRouter } from "next/router";
+
+export default function ClientInformation() {
+  const router = useRouter();
+  console.log(router.query); // { ids: ["id1", "id2", "id4"] }
+  return (
+    <div>
+      <h1>Client Information Page.</h1>
+    </div>
+  );
+}
+```
+
+#### Link
+
+- `app router` 와 동일한 **Link** Component 사용
+- href 속성을 문자열이 아닌 객체로도 전송 가능
+  > page router 의 폴더 체계와 같은 pathname 이용,
+  >
+  > useRouter hook 의 query 와 같은 형태의 객체 사용
+
+```jsx
+// /
+// index.js
+import Link from "next/link";
+
+export default function ClientInformation() {
+  return (
+    <div>
+      <h1>Client Information Page.</h1>
+      <Link
+        href={{
+          pathname: "/client/[id]",
+          query: {
+            id: "id1",
+          },
+        }}
+      >
+        client 1
+      </Link>
+    </div>
+  );
+}
+
+// /client/id1
+// page/client/[id].js
+import { useRouter } from "next/router";
+
+export default function ProjectDetails() {
+  const datas = useRouter();
+  console.log(datas.query); // { id: "id1" }
+  return (
+    <div>
+      <h1>The Project Details</h1>
+    </div>
+  );
+}
+
 ```
