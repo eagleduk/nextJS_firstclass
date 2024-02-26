@@ -9,7 +9,7 @@
   >
   > `/URL1/URL2/index.js` 와 `/URL1/URL2.js` 는 동일한 router 를 사용하게된다.
 
-- 예약된 파일명이 없고 동적 URL 은 `[].js` 로 동일하다.
+- <del>예약된 파일명이 없고</del> 동적 URL 은 `[].js` 로 동일하다.
 - URL 은 파일의 대소문자를 따라간다.
 
 #### 동적 route 세그먼트 추출
@@ -133,3 +133,8 @@ export default function ProjectMainPage() {
   );
 }
 ```
+
+#### custom 404
+
+- `page` 폴더 하위에 **404.js** 파일을 생성
+- 서비스에 존재하지 않는 URL(not-found) 에러 발생시 `404.js` 파일을 랜더링한다.
