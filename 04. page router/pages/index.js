@@ -9,6 +9,9 @@ export default function HomePage() {
           <Link href="/about">About</Link>
         </li>
         <li>
+          <Link href="/project">Project</Link>
+        </li>
+        <li>
           <Link href="/client">Client</Link>
           <ul>
             <Link href="/client/id1">client 1</Link>

@@ -103,3 +103,33 @@ export default function ProjectDetails() {
 }
 
 ```
+
+#### Programing Navigate
+
+- 이벤트로 인하여 페이지를 이동하는 경우
+- `useRouter` 의 **push** 메소드를 사용한다.
+- Link Component 의 href 속성처럼 문자열 또는 객체를 사용한다.
+
+```jsx
+import { useRouter } from "next/router";
+
+export default function ProjectMainPage() {
+  const router = useRouter();
+  function handleProjectStringLinkButton() {
+    router.push("/project/2024/12");
+  }
+  function handleProjectObjectLinkButton() {
+    router.push({
+      pathname: "/project/[...slug]",
+      query: { slug: ["2024", "12"] },
+    });
+  }
+  return (
+    <div>
+      <h1>Project Main Page</h1>
+      <button onClick={handleProjectStringLinkButton}>Go to Project</button>
+      <button onClick={handleProjectObjectLinkButton}>Go to Project</button>
+    </div>
+  );
+}
+```
