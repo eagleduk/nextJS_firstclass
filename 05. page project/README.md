@@ -32,3 +32,5 @@
 5. event detail page
 6. layout
 7. all event list page
+8. filter events list
+9. finsh
