@@ -28,3 +28,5 @@
    </Link>
 
    ```
+
+5. event detail page
