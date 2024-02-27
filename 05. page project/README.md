@@ -31,3 +31,4 @@
 
 5. event detail page
 6. layout
+7. all event list page
