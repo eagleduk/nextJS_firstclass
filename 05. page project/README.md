@@ -30,3 +30,4 @@
    ```
 
 5. event detail page
+6. layout
