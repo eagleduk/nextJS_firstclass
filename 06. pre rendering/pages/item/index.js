@@ -1,36 +1,46 @@
 import { useEffect, useState } from "react";
+import useSWR from "swr";
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function Items() {
-  const [items, setItems] = useState();
-  const [isLoading, setIsLoading] = useState(false);
+  const { data, isLoading, error } = useSWR(
+    "https://udemy-perfect-react-default-rtdb.asia-southeast1.firebasedatabase.app/movie.json",
+    fetcher
+  );
 
-  useEffect(() => {
-    setIsLoading(true);
-    fetch(
-      "https://udemy-perfect-react-default-rtdb.asia-southeast1.firebasedatabase.app/movie.json"
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        const d = Object.entries(data).map(([key, value]) => ({
-          ...value,
-          id: key,
-        }));
-        setItems(d);
-      })
-      .finally(() => setIsLoading(false));
-  }, []);
+  //   const [items, setItems] = useState();
+  //   const [isLoading, setIsLoading] = useState(false);
 
-  if (!items) return <p>No Data.</p>;
+  //   useEffect(() => {
+  //     setIsLoading(true);
+  //     fetch(
+  //       "https://udemy-perfect-react-default-rtdb.asia-southeast1.firebasedatabase.app/movie.json"
+  //     )
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         const d = Object.entries(data).map(([key, value]) => ({
+  //           ...value,
+  //           id: key,
+  //         }));
+  //         setItems(d);
+  //       })
+  //       .finally(() => setIsLoading(false));
+  //   }, []);
+
+  if (error) return <p>Data fetching Error.</p>;
+
+  if (!data) return <p>No Data.</p>;
 
   if (isLoading) return <p>Loading....</p>;
 
   return (
     <ul>
-      {items.map((item) => {
+      {Object.entries(data).map(([key, value]) => {
         return (
-          <li key={item.id}>
-            <h1>{item.title}</h1>
-            <p>{item.openingText}</p>
+          <li key={key}>
+            <h1>{value.title}</h1>
+            <p>{value.openingText}</p>
           </li>
         );
       })}
