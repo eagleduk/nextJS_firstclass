@@ -156,3 +156,8 @@ export async function getServerSideProps(context) {
 2. 미리 생성될 데이터를 특정지을 수 없을 때 수행
 3. SSR 페이지는 build 시 **HTML** 파일이 생성되지 않는다.
 4. `getServerSideProps()` 파라메터 **context** 내부에 `HttpRequest, HttpResponse` 가 포함되어 있다.
+
+## Client-Side data fetching
+
+1. 사전 렌더링으로 구현할 수 없는 페이지의 경우( 실시간 데이터, 데이터의 변경 주기가 짧은 데이터)
+2. React 의 useEffect - fetch 또는 [SWR](https://swr.vercel.app/) 를 사용하여 구현

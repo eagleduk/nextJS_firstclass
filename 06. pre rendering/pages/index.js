@@ -9,6 +9,9 @@ export default function Index() {
       <li>
         <Link href="/user">User</Link>
       </li>
+      <li>
+        <Link href="/item">Item</Link>
+      </li>
     </ul>
   );
 }
