@@ -3,14 +3,14 @@ import EventLogistics from "@/components/event-detail/EventLogistics";
 import EventSummary from "@/components/event-detail/EventSummary";
 import Button from "@/components/ui/Button";
 import ErrorAlert from "@/components/ui/ErrorAlert";
-import { getEventById } from "@/dummy-data";
-import { useRouter } from "next/router";
+import { getAllEvents, getEventById } from "@/dummy-data";
+// import { useRouter } from "next/router";
 
-export default function EventDetailPage() {
-  const router = useRouter();
-  const eventId = router.query.eventId;
+export default function EventDetailPage({ event }) {
+  // const router = useRouter();
+  // const eventId = props.eventId; //router.query.eventId;
 
-  const event = getEventById(eventId);
+  // const event = getEventById(eventId);
 
   if (!event) {
     return (
@@ -39,4 +39,22 @@ export default function EventDetailPage() {
       </EventContent>
     </>
   );
+}
+
+export async function getStaticProps(context) {
+  const eventId = context.params.eventId;
+  const event = await getEventById(eventId);
+  return {
+    props: {
+      event,
+    },
+  };
+}
+
+export async function getStaticPaths() {
+  const events = await getAllEvents();
+  return {
+    paths: events.map((event) => ({ params: { eventId: event.id } })),
+    fallback: false,
+  };
 }

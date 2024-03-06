@@ -31,12 +31,31 @@ const DUMMY_EVENTS = [
   },
 ];
 
-export function getFeaturedEvents() {
-  return DUMMY_EVENTS.filter((event) => event.isFeatured);
+async function getEvent(eventId) {
+  const response = await fetch(
+    `https://nextjs-course-7f144-default-rtdb.asia-southeast1.firebasedatabase.app/events/${eventId}.json`
+  );
+  const data = await response.json();
+  return data;
 }
 
-export function getAllEvents() {
-  return DUMMY_EVENTS;
+async function getEvents() {
+  const response = await fetch(
+    "https://nextjs-course-7f144-default-rtdb.asia-southeast1.firebasedatabase.app/events.json"
+  );
+  const data = await response.json();
+
+  return Object.entries(data).map(([key, value]) => ({ ...value, id: key }));
+}
+
+export async function getFeaturedEvents() {
+  const events = await getEvents();
+  return events.filter((event) => event.isFeatured);
+}
+
+export async function getAllEvents() {
+  const events = await getEvents();
+  return events;
 }
 
 export function getFilteredEvents(dateFilter) {
@@ -52,6 +71,7 @@ export function getFilteredEvents(dateFilter) {
   return filteredEvents;
 }
 
-export function getEventById(id) {
-  return DUMMY_EVENTS.find((event) => event.id === id);
+export async function getEventById(id) {
+  const event = await getEvent(id);
+  return event;
 }
