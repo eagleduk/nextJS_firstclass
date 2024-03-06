@@ -5,20 +5,42 @@ import Button from "@/components/ui/Button";
 import ErrorAlert from "@/components/ui/ErrorAlert";
 import { getFilteredEvents } from "@/dummy-data";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import useSWR from "swr";
 
-export default function FilteredEventPage(props) {
-  // const router = useRouter();
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-  // if (!router.query.slug) {
-  //   <p className="center">Loading....</p>;
-  // }
+export default function FilteredEventPage() {
+  const [allEvents, setAllEvents] = useState([]);
+  const router = useRouter();
 
-  // const [year, month] = router.query.slug;
+  const { data, error } = useSWR(
+    "https://nextjs-course-7f144-default-rtdb.asia-southeast1.firebasedatabase.app/events.json",
+    fetcher
+  );
 
-  // const nYear = +year;
-  // const nMonth = +month;
+  useEffect(() => {
+    if (data) {
+      const e = Object.entries(data).map(([key, value]) => ({
+        ...value,
+        id: key,
+      }));
 
-  if (props.error) {
+      setAllEvents(e);
+    }
+  }, [data]);
+
+  if (!router.query.slug) {
+    <p className="center">Loading....</p>;
+  }
+
+  const [year, month] = router.query.slug;
+
+  const nYear = +year;
+  const nMonth = +month;
+
+  // if (props.error) {
+  if (isNaN(nYear) || isNaN(nMonth) || nMonth < 1 || nMonth > 12 || error) {
     return (
       <>
         <ErrorAlert>
@@ -31,10 +53,17 @@ export default function FilteredEventPage(props) {
     );
   }
 
-  const {
-    events,
-    date: { year, month },
-  } = props;
+  const events = allEvents.filter((event) => {
+    const eventDate = new Date(event.date);
+    return (
+      eventDate.getFullYear() === nYear && eventDate.getMonth() === nMonth - 1
+    );
+  });
+
+  // const {
+  //   events,
+  //   date: { year, month },
+  // } = props;
 
   if (!events || events.length === 0) {
     return (
@@ -50,37 +79,37 @@ export default function FilteredEventPage(props) {
   }
   return (
     <div>
-      <ResultsTitle date={new Date(year, month - 1)} />
+      <ResultsTitle date={new Date(nYear, nMonth - 1)} />
       <EventList events={events} />
     </div>
   );
 }
 
-export async function getServerSideProps(context) {
-  const { params } = context;
+// export async function getServerSideProps(context) {
+//   const { params } = context;
 
-  const [year, month] = params.slug;
+//   const [year, month] = params.slug;
 
-  const nYear = +year;
-  const nMonth = +month;
+//   const nYear = +year;
+//   const nMonth = +month;
 
-  if (isNaN(nYear) || isNaN(nMonth) || nMonth < 1 || nMonth > 12) {
-    return {
-      props: {
-        error: true,
-      },
-    };
-  }
+//   if (isNaN(nYear) || isNaN(nMonth) || nMonth < 1 || nMonth > 12) {
+//     return {
+//       props: {
+//         error: true,
+//       },
+//     };
+//   }
 
-  const events = await getFilteredEvents({ year: nYear, month: nMonth });
+//   const events = await getFilteredEvents({ year: nYear, month: nMonth });
 
-  return {
-    props: {
-      events,
-      date: {
-        year: nYear,
-        month: nMonth,
-      },
-    },
-  };
-}
+//   return {
+//     props: {
+//       events,
+//       date: {
+//         year: nYear,
+//         month: nMonth,
+//       },
+//     },
+//   };
+// }
