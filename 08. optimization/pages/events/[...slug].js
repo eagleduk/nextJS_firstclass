@@ -1,12 +1,14 @@
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import useSWR from "swr";
+
 import EventList from "@/components/EventList";
 import EventSearch from "@/components/EventSearch";
 import ResultsTitle from "@/components/ResultsTitle";
 import Button from "@/components/ui/Button";
 import ErrorAlert from "@/components/ui/ErrorAlert";
 import { getFilteredEvents } from "@/dummy-data";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import useSWR from "swr";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -79,6 +81,13 @@ export default function FilteredEventPage() {
   }
   return (
     <div>
+      <Head>
+        <title>Filter Events</title>
+        <meta
+          name="description"
+          content={`Find Events in ${nYear}/${nMonth}`}
+        />
+      </Head>
       <ResultsTitle date={new Date(nYear, nMonth - 1)} />
       <EventList events={events} />
     </div>
