@@ -50,3 +50,8 @@ class NextDocument extends Document {
 }
 
 ```
+
+#### Image
+
+- 용량이 큰 파일을 로딩할 떄 캐쉬에 다운받는 시간이 다소 지연될 수 있다.
+- `Image` Component 를 이용하면 지정된 크기에 맞는 이미지를 NextJS 가 변형시켜 준다.
