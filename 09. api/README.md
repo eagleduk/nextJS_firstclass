@@ -18,3 +18,5 @@ function api(req, res) {
 
 export default api;
 ```
+
+#### 사전 페이지 랜더링
