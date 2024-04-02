@@ -1,10 +1,11 @@
-export default function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method === "GET") {
     res.status(200).json({ message: "News Letter" });
   }
   if (req.method === "POST") {
     const email = req.body.email;
-    fetch(
+
+    const response = await fetch(
       "https://nextjs-course-7f144-default-rtdb.asia-southeast1.firebasedatabase.app/subscription.json",
       {
         method: "POST",
@@ -14,6 +15,10 @@ export default function handler(req, res) {
         body: JSON.stringify({ email }),
       }
     );
-    res.status(200).json({});
+    if (response.ok) {
+      res.status(200).json({ message: "Subscription Success." });
+      return;
+    }
+    res.status(500).json({ message: "Subscription Fail." });
   }
 }

@@ -9,14 +9,27 @@ function Comments(props) {
   const { eventId } = props;
 
   const [showComments, setShowComments] = useState(false);
+  const [comments, setComments] = useState([]);
 
   function toggleCommentsHandler() {
     setShowComments((prevStatus) => !prevStatus);
+
+    if (!showComments) {
+      fetch("/api/comments/" + eventId)
+        .then((res) => res.json())
+        .then((data) => setComments(data.comments));
+    }
   }
 
   function addCommentHandler(commentData) {
     // send data to API
-    addComment(eventId, commentData);
+    fetch("/api/comments/" + eventId, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(commentData),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
   }
 
   return (
@@ -25,7 +38,7 @@ function Comments(props) {
         {showComments ? "Hide" : "Show"} Comments
       </button>
       {showComments && <NewComment onAddComment={addCommentHandler} />}
-      {showComments && <CommentList eventId={eventId} />}
+      {showComments && <CommentList comments={comments} />}
     </section>
   );
 }
