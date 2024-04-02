@@ -40,3 +40,18 @@ export async function getFilteredEvents(dateFilter) {
 
   return filteredEvents;
 }
+
+export async function addComment(id, commentData) {
+  fetch(
+    "https://nextjs-course-7f144-default-rtdb.asia-southeast1.firebasedatabase.app/comments/" +
+      id +
+      ".json",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(commentData),
+    }
+  );
+}

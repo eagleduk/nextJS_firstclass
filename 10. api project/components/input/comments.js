@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import CommentList from './comment-list';
-import NewComment from './new-comment';
-import classes from './comments.module.css';
+import CommentList from "./comment-list";
+import NewComment from "./new-comment";
+import classes from "./comments.module.css";
+import { addComment } from "@/helpers/api-util";
 
 function Comments(props) {
   const { eventId } = props;
@@ -15,15 +16,16 @@ function Comments(props) {
 
   function addCommentHandler(commentData) {
     // send data to API
+    addComment(eventId, commentData);
   }
 
   return (
     <section className={classes.comments}>
       <button onClick={toggleCommentsHandler}>
-        {showComments ? 'Hide' : 'Show'} Comments
+        {showComments ? "Hide" : "Show"} Comments
       </button>
       {showComments && <NewComment onAddComment={addCommentHandler} />}
-      {showComments && <CommentList />}
+      {showComments && <CommentList eventId={eventId} />}
     </section>
   );
 }
