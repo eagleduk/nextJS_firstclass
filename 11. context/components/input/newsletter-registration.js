@@ -3,10 +3,7 @@ import classes from "./newsletter-registration.module.css";
 import { notificationContext } from "../../store/notificationContext";
 
 function NewsletterRegistration() {
-  const {
-    onNotification,
-    notification: { title },
-  } = useContext(notificationContext);
+  const { onNotification } = useContext(notificationContext);
 
   const emailRef = useRef();
   function registrationHandler(event) {

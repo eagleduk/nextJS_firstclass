@@ -3,19 +3,10 @@ import Head from "next/head";
 import { getFeaturedEvents } from "../helpers/api-util";
 import EventList from "../components/events/event-list";
 import NewsletterRegistration from "../components/input/newsletter-registration";
-import NotificationProvider, {
-  notificationContext,
-} from "../store/notificationContext";
-import { useContext } from "react";
-import Notification from "../components/ui/notification";
 
 function HomePage(props) {
-  const {
-    notification: { title, message, status },
-    onReset,
-  } = useContext(notificationContext);
   return (
-    <NotificationProvider>
+    <div>
       <Head>
         <title>NextJS Events </title>
         <meta
@@ -25,8 +16,7 @@ function HomePage(props) {
       </Head>
       <NewsletterRegistration />
       <EventList items={props.events} />
-      <Notification />
-    </NotificationProvider>
+    </div>
   );
 }
 

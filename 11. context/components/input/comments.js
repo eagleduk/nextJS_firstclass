@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import CommentList from "./comment-list";
 import NewComment from "./new-comment";
 import classes from "./comments.module.css";
 import { addComment } from "@/helpers/api-util";
+import { notificationContext } from "@/store/notificationContext";
 
 function Comments(props) {
+  const { onNotification } = useContext(notificationContext);
   const { eventId } = props;
 
   const [showComments, setShowComments] = useState(false);
@@ -22,6 +24,7 @@ function Comments(props) {
   }
 
   function addCommentHandler(commentData) {
+    onNotification("sending...", "sending..", "pending");
     // send data to API
     fetch("/api/comments/" + eventId, {
       method: "POST",
@@ -29,7 +32,14 @@ function Comments(props) {
       body: JSON.stringify(commentData),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        console.log(data);
+        onNotification("success...", "success..", "success");
+      })
+      .catch((err) => {
+        console.error(err);
+        onNotification("error...", "error..", "error");
+      });
   }
 
   return (
