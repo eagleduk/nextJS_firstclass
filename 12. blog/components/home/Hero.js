@@ -3,7 +3,7 @@ import classes from "./Hero.module.css";
 
 export default function Hero() {
   return (
-    <div className={classes.hero}>
+    <section className={classes.hero}>
       <div className={classes.image}>
         <Image
           src="/images/touann-gatouillat-vergos.jpg"
@@ -17,6 +17,6 @@ export default function Hero() {
         I blog about web development - especially frontend frameworks like
         Angular or React.
       </p>
-    </div>
+    </section>
   );
 }
