@@ -1,3 +1,5 @@
+import PostItem from "@/components/post/item/PostItem";
+
 export default function Post() {
-  return <h1>Post</h1>;
+  return <PostItem />;
 }

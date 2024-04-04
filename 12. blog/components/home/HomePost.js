@@ -1,4 +1,4 @@
-import Posts from "../Post/Posts";
+import Posts from "../post/Posts";
 import classes from "./HomePost.module.css";
 
 export default function HomePost(props) {
