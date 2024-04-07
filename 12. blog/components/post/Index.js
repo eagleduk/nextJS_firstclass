@@ -6,9 +6,7 @@ export default function PostIndex(props) {
   return (
     <section className={classes.posts}>
       <h1>All Posts</h1>
-      {posts.map((post) => (
-        <Posts posts={posts} key={posts.id} />
-      ))}
+      <Posts posts={posts} />
     </section>
   );
 }

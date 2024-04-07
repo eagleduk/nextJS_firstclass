@@ -4,7 +4,11 @@ import matter from "gray-matter";
 
 const POSTPATH = path.join(process.cwd(), "posts");
 
-function getPost(filename) {
+export function getPostFiles() {
+  return fs.readdirSync(POSTPATH);
+}
+
+export function getPost(filename) {
   const targetPath = path.join(POSTPATH, filename);
   const target = fs.readFileSync(targetPath);
 
@@ -17,7 +21,7 @@ function getPost(filename) {
 }
 
 export function getPosts() {
-  const posts = fs.readdirSync(POSTPATH);
+  const posts = getPostFiles();
   return posts.map((post) => getPost(post)).sort((a, b) => a.date - b.date);
 }
 
