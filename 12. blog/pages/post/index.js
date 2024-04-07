@@ -1,16 +1,14 @@
 import PostIndex from "@/components/post/Index";
+import { getPosts } from "@/utils/postUtil";
 
-const Dummy = [
-  {
-    title: "Getting Started with NextJS",
-    date: "2022-02-10",
-    expcert:
-      "NextJS is a the React framework for production-it makes building fullstack React apps and sites a breeze and ships with built-in SSR.",
-    image: "getting-started-nextjs.png",
-    id: "blog1",
-  },
-];
+export default function Posts(props) {
+  return <PostIndex posts={props.posts} />;
+}
 
-export default function Posts() {
-  return <PostIndex posts={Dummy} />;
+export function getStaticProps() {
+  return {
+    props: {
+      posts: getPosts(),
+    },
+  };
 }
