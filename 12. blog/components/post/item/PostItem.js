@@ -1,4 +1,6 @@
 import ReactMarkdown from "react-markdown";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 import classes from "./PostItem.module.css";
 
@@ -25,6 +27,16 @@ export default function PostItem(props) {
         );
       }
       return <p>{content.children}</p>;
+    },
+    code(content) {
+      const { className: language, children: value } = content;
+      return (
+        <SyntaxHighlighter
+          children={value}
+          language={language.replace("language-", "")}
+          style={atomDark}
+        />
+      );
     },
   };
 

@@ -16,7 +16,13 @@ export default function Post(props) {
     <li className={classes.post}>
       <Link href={`/post/${id}`}>
         <div className={classes.image}>
-          <Image src={imagePath} width={300} height={200} layout="responsive" />
+          <Image
+            alt={title}
+            src={imagePath}
+            width={300}
+            height={200}
+            layout="responsive"
+          />
         </div>
         <div className={classes.content}>
           <h3>{title}</h3>
