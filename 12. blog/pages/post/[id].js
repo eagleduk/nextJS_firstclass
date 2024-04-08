@@ -1,8 +1,18 @@
+import Head from "next/head";
+
 import PostItem from "@/components/post/item/PostItem";
 import { getPostFiles, getPost } from "@/utils/postUtil";
 
 export default function Post(props) {
-  return <PostItem post={props.post} />;
+  return (
+    <>
+      <Head>
+        <title>{props.post.title}</title>
+        <meta name="description" content={props.post.excerpt} />
+      </Head>
+      <PostItem post={props.post} />
+    </>
+  );
 }
 
 export function getStaticProps(context) {
