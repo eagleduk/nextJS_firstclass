@@ -9,9 +9,8 @@ export default NextAuth({
   providers: [
     CredentialsProvider({
       name: "Credentials",
-      async authorize(credentials, req) {
+      async authorize(_, req) {
         const { id, password } = req.query;
-        console.log(id, password);
 
         const response = await fetch(
           "https://nextjs-course-7f144-default-rtdb.asia-southeast1.firebasedatabase.app/auth/" +
