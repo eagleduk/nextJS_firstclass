@@ -1,4 +1,4 @@
-import hashPassword from "@/utils/hashUtil";
+import { hashPassword } from "@/utils/hashUtil";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") return;
