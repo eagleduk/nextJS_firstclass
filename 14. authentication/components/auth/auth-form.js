@@ -1,11 +1,13 @@
 import { useRef, useState } from "react";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 
 import classes from "./auth-form.module.css";
 
 function AuthForm() {
   const idRef = useRef();
   const passwordRef = useRef();
+  const router = useRouter();
   const [isLogin, setIsLogin] = useState(true);
 
   function switchAuthModeHandler() {
@@ -25,6 +27,10 @@ function AuthForm() {
         { id, password }
       );
       console.log(result);
+      if (!result.error) {
+        // login success
+        router.replace("/");
+      }
     } else {
       const response = await fetch("/api/auth/signup", {
         method: "POST",
