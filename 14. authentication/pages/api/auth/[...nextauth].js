@@ -2,9 +2,18 @@ import { comparePassword } from "@/utils/hashUtil";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-export default NextAuth({
+export const AuthOptions = {
+  secret: "WoD2wC8MRPy/ZlUvwlBdIv7PCr51SsfG3EWpku4htqc=",
   session: {
     jwt: true,
+  },
+  callbacks: {
+    session({ session, token }) {
+      return {
+        ...session,
+        user: { id: token.sub },
+      };
+    },
   },
   providers: [
     CredentialsProvider({
@@ -38,4 +47,6 @@ export default NextAuth({
       },
     }),
   ],
-});
+};
+
+export default NextAuth(AuthOptions);
