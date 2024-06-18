@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Navigation from "./Navigation";
 
 export default function Header() {
   return (
@@ -8,9 +9,8 @@ export default function Header() {
       </div>
       <nav>
         <ul>
-          <li>
-            <Link href={"news"}>News</Link>
-          </li>
+          <Navigation href="/news">News</Navigation>
+          <Navigation href="/archive">Archive</Navigation>
         </ul>
       </nav>
     </header>

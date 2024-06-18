@@ -17,3 +17,9 @@
 - 상위 `error.js`는 하위 라우트에서 사용 가능
 - `error.js` component는 **_클라이언트_**에서 동작함으로 `"use client"` 사용.
 - `not-found` 와 다르게 Error를 던저줌으로써 불러온다.
+
+## 클라이언트 VS 서버 Component
+
+- NextJS의 component는 기본적으로 서버 사이드로 구현된다.
+- Client 함수를 수행(React-Hook 등)할 때에는 `"use client"`를 사용하여 클라이언트 component로 구성해야 한다.
+- Client component를 구성해야 할 때에는 최소한의 component로만 구성할 수 있도록 한다.

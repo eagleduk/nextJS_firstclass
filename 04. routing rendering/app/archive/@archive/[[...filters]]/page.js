@@ -29,7 +29,11 @@ export default function ArchiveFilterNews({ params }) {
 
   if (
     (year && !ALLYEAR.includes(+year)) ||
-    (month && !Array(12).fill(0).includes(+month))
+    (month &&
+      !Array(12)
+        .fill(0)
+        .map((_, i) => i + 1)
+        .includes(+month))
   ) {
     throw new Error("Invalid Filter.");
   }
