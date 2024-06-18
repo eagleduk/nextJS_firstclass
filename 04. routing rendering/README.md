@@ -10,3 +10,10 @@
 - page router 의 중첩된 동적 route와 비슷한 개념
 - 단지 폴더를 2중중첩 대괄호 `[[...id]]` 형식으로 사용한다.
 - 다수의 param 값을 배열로 받을 수 있다.
+
+## Throw Error
+
+- `error.js` 로 해당 라우트에 작성 가능
+- 상위 `error.js`는 하위 라우트에서 사용 가능
+- `error.js` component는 **_클라이언트_**에서 동작함으로 `"use client"` 사용.
+- `not-found` 와 다르게 Error를 던저줌으로써 불러온다.

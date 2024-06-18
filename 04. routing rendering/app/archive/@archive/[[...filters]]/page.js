@@ -8,6 +8,8 @@ import {
   getNewsForYearAndMonth,
 } from "@/libs/news";
 
+const ALLYEAR = [2021, 2022, 2023, 2024, 2025].reverse();
+
 export default function ArchiveFilterNews({ params }) {
   const filters = params.filters;
 
@@ -25,24 +27,43 @@ export default function ArchiveFilterNews({ params }) {
   let newsContent = <p>No have News.</p>;
   if (news.length > 0) newsContent = <NewsList news={news} />;
 
+  if (
+    (year && !ALLYEAR.includes(+year)) ||
+    (month && !Array(12).fill(0).includes(+month))
+  ) {
+    throw new Error("Invalid Filter.");
+  }
   return (
     <>
       <h1>News Archive</h1>
       <header id="archive-header">
         <ul>
-          {years.map((y) => (
-            <li key={y}>
-              <Link href={`/archive/${y}`}>{y}</Link>
-            </li>
-          ))}
+          {ALLYEAR.map((y) => {
+            if (years.includes(y)) {
+              return (
+                <li key={y}>
+                  <Link href={`/archive/${y}`}>{y}</Link>
+                </li>
+              );
+            }
+
+            return <li key={y}>{y}</li>;
+          })}
         </ul>
 
         <ul>
-          {months.map((m) => (
-            <li key={m}>
-              <Link href={`/archive/${year}/${m}`}>{m}</Link>
-            </li>
-          ))}
+          {Array(12)
+            .fill(0)
+            .map((_, i) => {
+              if (months.includes(i + 1)) {
+                return (
+                  <li key={i + 1}>
+                    <Link href={`/archive/${year}/${i + 1}`}>{i + 1}</Link>
+                  </li>
+                );
+              }
+              return <li key={i + 1}>{i + 1}</li>;
+            })}
         </ul>
       </header>
       {newsContent}
