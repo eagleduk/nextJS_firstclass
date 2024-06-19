@@ -23,3 +23,9 @@
 - NextJS의 component는 기본적으로 서버 사이드로 구현된다.
 - Client 함수를 수행(React-Hook 등)할 때에는 `"use client"`를 사용하여 클라이언트 component로 구성해야 한다.
 - Client component를 구성해야 할 때에는 최소한의 component로만 구성할 수 있도록 한다.
+
+## 인터셉터 라우팅
+
+- 페이지에 도달하는 과정에 따라 다른 페이지를 보여주는것
+- `(가로채고자 하는 route 상대경로)가로채고자 하는 route path` 식으로 구성
+- 폴더 구성이 아니라 url 구성을 따라간다. 따라서 병렬 라우트는 상위 라우트로 생각하지 않는다.
