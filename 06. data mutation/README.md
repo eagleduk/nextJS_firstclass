@@ -19,3 +19,8 @@
 
 - useOptimistic를 사용한 낙관적 업데이트
 - 서버 응답이 끝나기 전에 클라이언트에서 미리 업데이트 하는것.
+
+## development VS production
+
+- Production(배포) 모드에서 동적 URL 이 아닌 페이지에서는 자동으로 컴파일이 되지 않는다.
+- 따라서 캐쉬된 페이지를 다시 컴파일 하기 위해서는 `revalidatePath` 함수로 필요 페이지를 컴파일해 주어야 한다.
