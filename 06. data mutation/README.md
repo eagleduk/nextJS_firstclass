@@ -10,3 +10,7 @@
 ## cloudinary
 
 - 무료 storage 서비스
+
+## revalidatePath
+
+- nextJS의 캐싱된 페이지를 다시 컴파일하는 것.
