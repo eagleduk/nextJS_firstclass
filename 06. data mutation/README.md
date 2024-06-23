@@ -14,3 +14,8 @@
 ## revalidatePath
 
 - nextJS의 캐싱된 페이지를 다시 컴파일하는 것.
+
+## useOptimistic
+
+- useOptimistic를 사용한 낙관적 업데이트
+- 서버 응답이 끝나기 전에 클라이언트에서 미리 업데이트 하는것.

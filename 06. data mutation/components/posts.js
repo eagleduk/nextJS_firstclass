@@ -1,8 +1,11 @@
+"use client";
+import { useOptimistic } from "react";
+
 import { formatDate } from "@/lib/format";
 import LikeButton from "./like-icon";
 import { toggleFeedLike } from "@/actions/post";
 
-function Post({ post }) {
+function Post({ post, action }) {
   return (
     <article className="post">
       <div className="post-image">
@@ -21,7 +24,7 @@ function Post({ post }) {
           </div>
           <div>
             <form
-              action={toggleFeedLike.bind(null, post.id)}
+              action={action.bind(null, post.id)}
               className={post.isLiked ? "liked" : ""}
             >
               <LikeButton />
@@ -35,15 +38,40 @@ function Post({ post }) {
 }
 
 export default function Posts({ posts }) {
-  if (!posts || posts.length === 0) {
+  const [optimisticPost, updateOptimisticPost] = useOptimistic(
+    posts,
+    (prevPost, postId) => {
+      const targetIndex = prevPost.findIndex((post) => post.id === postId);
+
+      if (targetIndex < 0) return prevPost;
+
+      const updatePost = [...prevPost];
+      updatePost[targetIndex] = {
+        ...updatePost[targetIndex],
+        likes:
+          updatePost[targetIndex].likes +
+          (updatePost[targetIndex].isLiked ? 1 : -1),
+        isLiked: !updatePost[targetIndex].isLiked,
+      };
+
+      return updatePost;
+    }
+  );
+
+  async function likeAction(postId) {
+    updateOptimisticPost(postId);
+    await toggleFeedLike(postId);
+  }
+
+  if (!optimisticPost || optimisticPost.length === 0) {
     return <p>There are no posts yet. Maybe start sharing some?</p>;
   }
 
   return (
     <ul className="posts">
-      {posts.map((post) => (
+      {optimisticPost.map((post) => (
         <li key={post.id}>
-          <Post post={post} />
+          <Post post={post} action={likeAction} />
         </li>
       ))}
     </ul>
