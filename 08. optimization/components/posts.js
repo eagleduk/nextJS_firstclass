@@ -1,16 +1,34 @@
 "use client";
 
 import { useOptimistic } from "react";
+import Image from "next/image";
 
 import { formatDate } from "@/lib/format";
 import LikeButton from "./like-icon";
 import { togglePostLikeStatus } from "@/actions/posts";
 
+function imageLoader(config) {
+  const src = config.src;
+  const startURL = src.split("upload/")[0];
+  const endURL = src.split("upload/")[1];
+
+  // res.cloudinary.com 의 이미지 변환 URL
+  return `${startURL}upload/w_200,h_200/q_${config.quality}/${endURL}`;
+}
+
 function Post({ post, action }) {
   return (
     <article className="post">
       <div className="post-image">
-        <img src={post.image} alt={post.title} />
+        <Image
+          loader={imageLoader}
+          src={post.image}
+          width={200}
+          height={200}
+          quality={50}
+          alt={post.title}
+          priority
+        />
       </div>
       <div className="post-content">
         <header>
