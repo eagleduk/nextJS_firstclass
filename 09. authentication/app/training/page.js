@@ -1,6 +1,13 @@
+import { redirect } from "next/navigation";
+
 import { getTrainings } from "@/lib/training";
+import { checkUserSession } from "@/lib/lucia-auth";
 
 export default async function TrainingPage() {
+  const result = await checkUserSession();
+  if (!result.session) {
+    return redirect("/");
+  }
   const trainingSessions = getTrainings();
 
   return (

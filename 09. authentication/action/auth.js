@@ -1,8 +1,10 @@
 "use server";
 
+import { redirect } from "next/navigation";
+
 import { createUser } from "@/lib/auth";
 import { hashUserPassword } from "@/lib/hash";
-import { redirect } from "next/navigation";
+import { createUserSession } from "@/lib/lucia-auth";
 
 export async function signup(_, formData) {
   const email = formData.get("email");
@@ -27,7 +29,8 @@ export async function signup(_, formData) {
   const hashedPassword = hashUserPassword(password);
 
   try {
-    createUser(email, hashedPassword);
+    const id = createUser(email, hashedPassword);
+    await createUserSession(id);
   } catch (error) {
     if (error.code === "SQLITE_CONSTRAINT_UNIQUE") {
       return {
@@ -38,6 +41,5 @@ export async function signup(_, formData) {
     }
     throw Error;
   }
-
   redirect("/training");
 }
