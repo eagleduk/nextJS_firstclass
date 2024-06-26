@@ -64,3 +64,19 @@ export async function checkUserSession() {
   } catch {}
   return result;
 }
+
+export async function destorySession() {
+  const { session } = await checkUserSession();
+  if (!session) {
+    throw Error("잘못된 인증");
+  }
+
+  await lucia.invalidateSession(session.id);
+
+  const sessionCookie = lucia.createBlankSessionCookie();
+  cookies().set(
+    sessionCookie.name,
+    sessionCookie.value,
+    sessionCookie.attributes
+  );
+}

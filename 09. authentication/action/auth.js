@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 
 import { createUser, getUser } from "@/lib/auth";
 import { hashUserPassword, verifyPassword } from "@/lib/hash";
-import { createUserSession } from "@/lib/lucia-auth";
+import { createUserSession, destorySession } from "@/lib/lucia-auth";
 
 export async function signup(_, formData) {
   const email = formData.get("email");
@@ -74,4 +74,10 @@ export default async function login(_, formData) {
 
 export async function authAction(mode, _, formData) {
   return mode === "login" ? login(_, formData) : signup(_, formData);
+}
+
+export async function logout() {
+  await destorySession();
+
+  redirect("/");
 }

@@ -28,14 +28,14 @@ export default function AuthForm({ mode }) {
       )}
       <p>
         <button type="submit">
-          {mode === "login" ? "Login" : "Create Account"}
+          {mode === "signup" ? "Create Account" : "Login"}
         </button>
       </p>
       <p>
         {mode === "login" && (
           <Link href="/?mode=signup">Create New Account.</Link>
         )}
-        {mode === "signup" && (
+        {mode !== "login" && (
           <Link href="/?mode=login">Login with existing account.</Link>
         )}
       </p>
